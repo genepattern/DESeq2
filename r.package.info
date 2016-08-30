@@ -1,0 +1,79 @@
+"package,requested_version,archive_name,src_URL,Mac_URL,Windows_URL"
+
+#
+# base packages
+#
+# base_3.2.5                                                             
+# parallel_3.2.5                                                         
+# stats4_3.2.5                                                           
+# stats_3.2.5                                                            
+# graphics_3.2.5                                                         
+# grDevices_3.2.5                                                        
+# utils_3.2.5                                                            
+# datasets_3.2.5                                                         
+# methods_3.2.5                                                          
+
+# BiocInstaller 1.20.3
+BiocInstaller
+stringi, 1.1.1, CRAN
+magrittr, 1.5, CRAN
+colorspace, 1.2-6, CRAN
+# zlibbioc_1.16.0
+zlibbioc
+lambda.r, 1.1.9, CRAN
+futile.options, 1.0.0, CRAN
+DBI, 0.4-1, CRAN
+XML, 3.98-1.4, CRAN
+xtable, 1.8-2, CRAN
+dichromat, 2.0-0, CRAN
+labeling, 0.3, CRAN
+chron, 2.3-47, CRAN
+snow, 0.4-1, CRAN
+RColorBrewer, 1.1-2, CRAN
+digest, 0.6.9, CRAN
+gtable, 0.2.0, CRAN
+Formula, 1.2-1, CRAN
+acepack, 1.3-3.3, CRAN
+Rcpp, 0.12.6, CRAN
+# BiocGenerics_0.16.1                                                    
+BiocGenerics
+locfit, 1.5-9.1, CRAN
+RSQLite, 1.0.0, CRAN
+stringr, 1.0.0, CRAN
+munsell, 0.4.3, CRAN
+futile.logger, 1.4.3, CRAN
+plyr, 1.8.4, CRAN
+latticeExtra, 0.6-28, CRAN
+gridExtra, 2.2.1, CRAN
+data.table, 1.9.6, CRAN
+# S4Vectors_0.8.11                                                       
+S4Vectors
+RcppArmadillo, 0.7.200.2.0, CRAN
+# Biobase_2.30.0                                                         
+Biobase
+reshape2, 1.4.1, CRAN
+scales, 0.4.0, CRAN
+# IRanges_2.4.8                                                          
+IRanges
+# BiocParallel_1.4.3
+BiocParallel
+# GenomeInfoDb_1.6.3                                                     
+GenomeInfoDb
+# XVector_0.10.0
+XVector
+# AnnotationDbi_1.32.3
+AnnotationDbi
+ggplot2, 2.1.0, CRAN
+# annotate_1.48.0
+annotate
+# GenomicRanges_1.22.4                                                   
+GenomicRanges
+Hmisc, 3.17-4, CRAN
+# SummarizedExperiment_1.0.2                                             
+SummarizedExperiment
+# genefilter_1.52.1
+genefilter
+# geneplotter_1.48.0
+geneplotter
+# DESeq2_1.10.1                                                          
+DESeq2

@@ -1,0 +1,126 @@
+##
+## Copyright (c) 2016 Broad Institute, Inc. and Massachusetts Institute of Technology.  All rights reserved.
+##
+#DESeq2
+#Fri Aug 19 14:46:22 JST 2016
+JVMLevel=
+LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00362\:999999999
+author=David Eby;Broad Institute
+commandLine=<R3.2_Rscript> --no-save --quiet --slave --no-restore <libdir>run_gp_deseq2.R <libdir> \
+    --input.file\=<input.file> --cls.file\=<cls.file> <confounding.variable.cls.file> \
+    --output.file.base\=<output.file.base> --qc.plot.format\=<qc.plot.format> --phenotype.test\=<phenotype.test> \
+    --fdrThreshold\=<fdr.threshold> --topNCount\=<top.N.count> --randomSeed\=<random.seed>
+license=
+cpuType=any
+description=A Differential Expression workflow for RNA-Seq data based on the DESeq2 package from Bioconductor 
+taskDoc=doc.html
+fileFormat=txt
+language=R3.2.5
+name=DESeq2
+os=any
+privacy=public
+quality=development
+taskType=Gene List Selection
+categories=RNA-Seq;Differential Expression;Gene List Selection;DESeq;DESeq2
+userid=eby@broadinstitute.org
+version=
+
+p1_default_value=
+p1_description=A GCT file containing raw RNA-Seq counts, such as is produced by MergeHTSeqCounts
+p1_fileFormat=gct
+p1_numValues=1
+p1_MODE=IN
+p1_name=input.file
+p1_optional=
+p1_prefix_when_specified=
+p1_TYPE=FILE
+p1_type=java.io.File
+p1_value=
+
+p2_default_value=
+p2_description=A categorical CLS file specifying the phenotype classes for the samples in the GCT file.  If this contains more than two classes, multiple comparisons will be done according to the phenotype.test parameter.
+p2_fileFormat=cls
+p2_numValues=1
+p2_MODE=IN
+p2_name=cls.file
+p2_optional=
+p2_prefix_when_specified=
+p2_TYPE=FILE
+p2_type=java.io.File
+p2_value=
+
+p3_default_value=
+p3_description=A categorical CLS file specifying an additional confounding variable, mapped to the input file samples.  Use this for a two-factor comparison.
+p3_fileFormat=cls
+p3_MODE=IN
+p3_name=confounding.variable.cls.file
+p3_optional=on
+p3_prefix_when_specified=--confounding.variable.cls.file\=
+p3_TYPE=FILE
+p3_type=java.io.File
+p3_value=
+
+p4_default_value=<input.file_basename>
+p4_description=The base name of the output file(s). File extensions will be added automatically.
+p4_name=output.file.base
+p4_optional=
+p4_prefix_when_specified=
+p4_type=java.lang.String
+p4_value=
+
+p5_default_value=skip
+p5_description=Choose a file format for the QC plots (or skip them completely)
+p5_fileFormat=
+p5_name=qc.plot.format
+p5_optional=
+p5_prefix_when_specified=
+p5_type=java.lang.String
+p5_value=pdf;svg;png;skip\=skip (do not produce QC plots)
+
+p6_default_value=one-versus-all
+p6_description=Tests to perform when cls.file contains more than two classes.
+p6_fileFormat=
+p6_name=phenotype.test
+p6_optional=
+p6_prefix_when_specified=
+p6_type=java.lang.String
+p6_value=one-versus-all\=one versus all;all-pairs\=all pairs
+
+p7_MODE=
+p7_default_value=0.1
+p7_description=FDR threshold to use in filtering before creating the reports of top up-regulated and down-regulated genes 
+p7_fileFormat=
+p7_flag=
+p7_name=fdr.threshold
+p7_optional=
+p7_prefix=
+p7_prefix_when_specified=
+p7_type=java.lang.Float
+p7_value=
+
+p8_MODE=
+p8_default_value=20
+p8_description=Max gene count to use when creating the reports of top up-regulated and down-regulated genes 
+p8_fileFormat=
+p8_flag=
+p8_name=top.N.count
+p8_optional=
+p8_prefix=
+p8_prefix_when_specified=
+p8_type=java.lang.Integer
+p8_value=
+
+p9_MODE=
+p9_default_value=779948241
+p9_description=Seed to use for randomization
+p9_fileFormat=
+p9_flag=
+p9_name=random.seed
+p9_optional=
+p9_prefix=
+p9_prefix_when_specified=
+p9_type=java.lang.Integer
+p9_value=
+
+requiredPatchLSIDs=
+requiredPatchURLs=
