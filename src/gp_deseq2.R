@@ -7,7 +7,7 @@ GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.t
 
     # Hiding advanced feature: not allowing >2 classes in Beta
     # Make sure there are only two classes for comparison
-    if (NROW(cls$names) == 2) {
+    if (NROW(cls$names) != 2) {
         stop("The cls.file must be categorical with exactly two classes")
     }
 
