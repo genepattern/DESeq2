@@ -34,8 +34,8 @@ source(file.path(libdir, "gp_deseq2.R"))
 check.output.format(opts$qc.plot.format)
 # Hiding advanced feature: not allowing >2 classes in Beta
 #check.phenotype.test(opts$phenotype.test)
-#phenotype.test -> opts$phenotype.test
-phenotype.test -> NULL
+#phenotype.test <- opts$phenotype.test
+phenotype.test <- NULL
 
 # Load the GCT and CLS.
 gct <- read.gct(opts$input.file)
