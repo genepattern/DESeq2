@@ -5,9 +5,10 @@
 GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.test,
                       output.file.base, random.seed, fdrThreshold, topNCount) {
 
-    # Make sure there are at least two classes for comparison
-    if (NROW(cls$names) < 2) {
-        stop("The cls.file must be categorical with at least two classes")
+    # Hiding advanced feature: not allowing >2 classes in Beta
+    # Make sure there are only two classes for comparison
+    if (NROW(cls$names) == 2) {
+        stop("The cls.file must be categorical with exactly two classes")
     }
 
     if (!is.null(random.seed) && !is.na(random.seed)) {
@@ -46,12 +47,17 @@ GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.t
     
     # Perform differential expression and build reports
     if (NROW(cls$names) == 2) {
-        # With only two classes there is only one way to set up 
+        # Hiding advanced feature: not allowing >2 classes in Beta; thus the first clause here will always be selected.
+    
+        # With only two classes there is only one way to set up.
         ddsFullCountTable$conditions <- factor(ddsFullCountTable$conditions, levels=cls$names)
         dds <- DESeq(ddsFullCountTable, quiet=TRUE)
-       
+
+        # We always treat the first class from the CLS as the control, at least for this Beta.  This may change in later releases.
         write.reports(dds, output.file.base, cls$names[1], cls$names[2], fdrThreshold, topNCount, qc.plot.format)
     } else if (phenotype.test == "one-versus-all") {
+        # Hiding advanced feature: not allowing >2 classes in Beta; thus this clause will never be selected
+    
         # We'll iterate through the the cls$names one by one, comparing samples of that class against the rest of the samples
         # (all grouped together into one "Rest" pseudo-class).
         for (currClass in cls$names) {
@@ -66,6 +72,8 @@ GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.t
             write.reports(dds, output.file.base, currClass, "Rest", fdrThreshold, topNCount, qc.plot.format)
         }
     } else { # Otherwise we're doing all-pairs
+        # Hiding advanced feature: not allowing >2 classes in Beta; thus this clause will never be selected
+
         # We'll iterate through the the cls$names one by one, comparing samples of that class to the other classes one at a time.
         for (i in 1:(NROW(cls$names) - 1) ) {  # Goes up to but does not include the last class
             # Set the currClass as the reference level
