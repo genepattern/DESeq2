@@ -83,10 +83,12 @@ GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.t
 }
 
 write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, topNCount, qc.plot.format) {
-    res <- results(dds, contrast=c("conditions", class0, class1))
+    # Note that this means we are comparing "class1 vs. class0" and thus class0 represents the control. 
+    res <- results(dds, contrast=c("conditions", class1, class0))
     
-    # Adjust NA padj (FDR) values;  This is courtesy of Brian Haas' code.  DESeq2 sets these to NA if they do not pass the
-    # significance threshold, but leaving them as NA can give misleading output.
+    # Adjust NA padj values;  This is courtesy of Brian Haas' code.  DESeq2 sets these to NA if they do not pass the
+    # significance threshold, but leaving them as NA can give misleading output; setting them to 1 means they will 
+    # not pass the FDR threshold.
     res$padj[is.na(res$padj)]  <- 1
     
     # Based on the original code from Brian Haas' example.  Instead, we're going to give the class means in one
@@ -94,12 +96,11 @@ write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, t
     #means_report <- cbind(baseMeanA, baseMeanB, as.data.frame(res))
     #means_report <- cbind(id=rownames(means_report), as.data.frame(means_report))
 
-    # Create some reports, ordered by p-value
-    # Brian Haas orders by pvalue instead of padj.  Official docs use padj.  This is up in the air ATM.
+    # Create some reports, ordered by adjusted p-value
     resOrdered <- res[order(res$padj),]
 
     # Write the basic results report from DESeq2
-    output.file.base <- paste(output.file.base, class0, "vs", class1, sep=".")
+    output.file.base <- paste(output.file.base, class1, "vs", class0, sep=".")
     write.table(cbind(id=rownames(resOrdered), as.data.frame(resOrdered)), sep='\t', quote=FALSE, row.names=FALSE, 
                 append=TRUE, paste0(output.file.base, ".DESeq2_results_report.txt"))
 
@@ -123,12 +124,12 @@ write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, t
         print.DispEsts(dds, device.open, output.file.base)
     }
 
-    # Get the subset consisting only of the significant genes, as determined by FDR.
+    # Get the subset consisting only of the significant genes, as determined by an FDR threshold test.
     resSig <- subset(res, padj < fdrThreshold)
     
     # Check the size; if everything has been filtered out then we let the user know and skip these reports.
     if (NROW(resSig) == 0) {
-       message <- paste0("Cannot report top up-regulated & down-regulated genes for ", class0, " vs. ", class1,
+       message <- paste0("Cannot report top up-regulated & down-regulated genes for ", class1, " vs. ", class0,
                     " .  No results pass the FDR filter threshold of ", fdrThreshold, ".")
        write(message, file=paste0(output.file.base, ".top", topNCount, "_upregulated_genes_report.txt"))
        write(message, file=paste0(output.file.base, ".top", topNCount, "_downregulated_genes_report.txt"))
