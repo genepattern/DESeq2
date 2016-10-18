@@ -4,9 +4,9 @@ name: Valid Parameter Set 8
 description: Runs DESeq2 with half VIB workshop data, no plots (default), .1 FDR (default), top 20 genes (default) and **OTHER random seed**. Job status = success
 module: DESeq2
 params:
-       input.file: "<%gpunit.testData%>gpunit/DESeq2/v1/input/vib_workshop_half.gct"
-       cls.file: "<%gpunit.testData%>gpunit/DESeq2/v1/input/vib_workshop_half.cls"
-       confounding.variable.cls.file: "<%gpunit.testData%>gpunit/DESeq2/v1/input/vib_workshop_half_conf.gct"
+       input.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.gct"
+       cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.cls"
+       confounding.variable.cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half_conf.gct"
        output.file.base: "<input.file_basename>_altSeed"
        qc.plot.format: "skip"
        fdr.threshold: "0.1"
