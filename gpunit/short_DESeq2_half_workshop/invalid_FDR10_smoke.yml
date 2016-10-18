@@ -6,7 +6,7 @@ module: DESeq2
 params:
        input.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.gct"
        cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.cls"
-       confounding.variable.cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half_conf.gct"
+       confounding.variable.cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half_conf.cls"
        output.file.base: "<input.file_basename>_fdr10_Invalid"
        qc.plot.format: "skip"
        fdr.threshold: "10"
