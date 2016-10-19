@@ -12,5 +12,6 @@ params:
        fdr.threshold: "0.1"
        top.N.count: "20"
        random.seed: "123456789"
+#This will probably benefit from a diff - a visual comparison of the top/bottom 20 and top/bottom mean shows no difference       
 assertions:
         jobStatus: success
