@@ -1,0 +1,16 @@
+#lsid=urn:lsid:broad.mit.edu:cancer.software.genepattern.module.analysis:00362:0.2
+#
+name: valid_v1_defaults_.01FDR_smoke
+description: Runs DESeq2 with half VIB workshop data, no plots (default), **.01 FDR**, top 20 genes (default) and default random seed. Job status = success
+module: DESeq2
+params:
+       input.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.gct"
+       cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.cls"
+       confounding.variable.cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half_conf.cls"
+       output.file.base: "<input.file_basename>_.5FDR"
+       qc.plot.format: "skip"
+       fdr.threshold: "0.01"
+       top.N.count: "20"
+       random.seed: "779948241"
+assertions:
+        jobStatus: success
