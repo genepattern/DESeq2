@@ -4,13 +4,26 @@ name: valid_v1_defaults_.01FDR_smoke
 description: Runs DESeq2 with half VIB workshop data, no plots (default), **.01 FDR**, top 20 genes (default) and default random seed. Job status = success
 module: DESeq2
 params:
-       input.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.gct"
-       cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.cls"
-       confounding.variable.cls.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half_conf.cls"
+       input.file: "Input/vib_workshop_half.gct"
+       cls.file: "Input/vib_workshop_half.cls"
+       confounding.variable.cls.file: "Input/vib_workshop_half_conf.cls"
        output.file.base: "<input.file_basename>_.5FDR"
        qc.plot.format: "skip"
        fdr.threshold: "0.01"
        top.N.count: "20"
        random.seed: "779948241"
 assertions:
-        jobStatus: success
+        #jobStatus: success
+        diffCmd: diff <%gpunit.diffStripTrailingCR%> -q
+        files:
+            "vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt":
+                diff: "Output/vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt"
+            "vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt":
+                diff: "Output/vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt"
+            "vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt":
+                diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt"
+            "vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt":
+                diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt"
+            "vib_workshop_half.Dex.vs.untreated.QC.DispEsts.pdf": !!Null
+            "vib_workshop_half.Dex.vs.untreated.QC.MAplot.pdf": !!Null
+            "stdout.txt": !!Null
