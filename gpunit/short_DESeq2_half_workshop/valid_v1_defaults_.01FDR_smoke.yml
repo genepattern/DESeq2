@@ -13,17 +13,5 @@ params:
        top.N.count: "20"
        random.seed: "779948241"
 assertions:
-        #jobStatus: success
-        diffCmd: diff <%gpunit.diffStripTrailingCR%> -q
-        files:
-            "vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt"
-            "vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt"
-            "vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt"
-            "vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt"
-            "vib_workshop_half.Dex.vs.untreated.QC.DispEsts.pdf": !!Null
-            "vib_workshop_half.Dex.vs.untreated.QC.MAplot.pdf": !!Null
-            "stdout.txt": !!Null
+        jobStatus: success
+        
