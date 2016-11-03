@@ -1,7 +1,7 @@
 #lsid=urn:lsid:broad.mit.edu:cancer.software.genepattern.module.analysis:00362:0.2
 #
 name: Valid Parameter Set 2
-description: Runs DESeq2 with half VIB workshop data, **pdf plots**, .1 FDR (default), top 20 genes (default) and default random seed. Job status = success
+description: Runs DESeq2 with half VIB workshop data, **pdf plots**, .1 FDR (default), top 20 genes (default) and default random seed. Diff 
 module: DESeq2
 params:
        input.file: "<%gpunit.testData%>/gpunit/DESeq2/v1/input/vib_workshop_half.gct"
@@ -13,17 +13,18 @@ params:
        top.N.count: "20"
        random.seed: "779948241"
 assertions:
-        #jobStatus: success
-        diffCmd: diff <%gpunit.diffStripTrailingCR%> -q
+        jobStatus: success
+        #diffCmd: diff <%gpunit.diffStripTrailingCR%> -q
+        numFiles: 7
         files:
-            "vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt"
-            "vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt"
-            "vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt"
-            "vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt":
-                diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt"
+            "vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt": !Null
+                #diff: "Output/vib_workshop_half.Dex.vs.untreated.DESeq2_results_report.txt"
+            "vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt": !Null
+                #diff: "Output/vib_workshop_half.Dex.vs.untreated.mean_values_by_class.txt"
+            "vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt": !Null
+                #diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_downregulated_genes_report.txt"
+            "vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt": !Null
+                #diff: "Output/vib_workshop_half.Dex.vs.untreated.top20_upregulated_genes_report.txt"
             "vib_workshop_half.Dex.vs.untreated.QC.DispEsts.pdf": !!Null
             "vib_workshop_half.Dex.vs.untreated.QC.MAplot.pdf": !!Null
             "stdout.txt": !!Null
