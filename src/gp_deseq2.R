@@ -5,9 +5,10 @@
 GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.test,
                       output.file.base, random.seed, fdrThreshold, topNCount) {
 
-    # Make sure there are at least two classes for comparison
-    if (NROW(cls$names) < 2) {
-        stop("The cls.file must be categorical with at least two classes")
+    # Hiding advanced feature: not allowing >2 classes in Beta
+    # Make sure there are only two classes for comparison
+    if (NROW(cls$names) != 2) {
+        stop("The cls.file must be categorical with exactly two classes")
     }
 
     if (!is.null(random.seed) && !is.na(random.seed)) {
@@ -46,12 +47,17 @@ GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.t
     
     # Perform differential expression and build reports
     if (NROW(cls$names) == 2) {
-        # With only two classes there is only one way to set up 
+        # Hiding advanced feature: not allowing >2 classes in Beta; thus the first clause here will always be selected.
+    
+        # With only two classes there is only one way to set up.
         ddsFullCountTable$conditions <- factor(ddsFullCountTable$conditions, levels=cls$names)
         dds <- DESeq(ddsFullCountTable, quiet=TRUE)
-       
+
+        # We always treat the first class from the CLS as the control, at least for this Beta.  This may change in later releases.
         write.reports(dds, output.file.base, cls$names[1], cls$names[2], fdrThreshold, topNCount, qc.plot.format)
     } else if (phenotype.test == "one-versus-all") {
+        # Hiding advanced feature: not allowing >2 classes in Beta; thus this clause will never be selected
+    
         # We'll iterate through the the cls$names one by one, comparing samples of that class against the rest of the samples
         # (all grouped together into one "Rest" pseudo-class).
         for (currClass in cls$names) {
@@ -66,6 +72,8 @@ GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.t
             write.reports(dds, output.file.base, currClass, "Rest", fdrThreshold, topNCount, qc.plot.format)
         }
     } else { # Otherwise we're doing all-pairs
+        # Hiding advanced feature: not allowing >2 classes in Beta; thus this clause will never be selected
+
         # We'll iterate through the the cls$names one by one, comparing samples of that class to the other classes one at a time.
         for (i in 1:(NROW(cls$names) - 1) ) {  # Goes up to but does not include the last class
             # Set the currClass as the reference level
@@ -83,10 +91,12 @@ GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.t
 }
 
 write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, topNCount, qc.plot.format) {
-    res <- results(dds, contrast=c("conditions", class0, class1))
+    # Note that this means we are comparing "class1 vs. class0" and thus class0 represents the control. 
+    res <- results(dds, contrast=c("conditions", class1, class0))
     
-    # Adjust NA padj (FDR) values;  This is courtesy of Brian Haas' code.  DESeq2 sets these to NA if they do not pass the
-    # significance threshold, but leaving them as NA can give misleading output.
+    # Adjust NA padj values;  This is courtesy of Brian Haas' code.  DESeq2 sets these to NA if they do not pass the
+    # significance threshold, but leaving them as NA can give misleading output; setting them to 1 means they will 
+    # not pass the FDR threshold.
     res$padj[is.na(res$padj)]  <- 1
     
     # Based on the original code from Brian Haas' example.  Instead, we're going to give the class means in one
@@ -94,12 +104,11 @@ write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, t
     #means_report <- cbind(baseMeanA, baseMeanB, as.data.frame(res))
     #means_report <- cbind(id=rownames(means_report), as.data.frame(means_report))
 
-    # Create some reports, ordered by p-value
-    # Brian Haas orders by pvalue instead of padj.  Official docs use padj.  This is up in the air ATM.
+    # Create some reports, ordered by adjusted p-value
     resOrdered <- res[order(res$padj),]
 
     # Write the basic results report from DESeq2
-    output.file.base <- paste(output.file.base, class0, "vs", class1, sep=".")
+    output.file.base <- paste(output.file.base, class1, "vs", class0, sep=".")
     write.table(cbind(id=rownames(resOrdered), as.data.frame(resOrdered)), sep='\t', quote=FALSE, row.names=FALSE, 
                 append=TRUE, paste0(output.file.base, ".DESeq2_results_report.txt"))
 
@@ -123,12 +132,12 @@ write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, t
         print.DispEsts(dds, device.open, output.file.base)
     }
 
-    # Get the subset consisting only of the significant genes, as determined by FDR.
+    # Get the subset consisting only of the significant genes, as determined by an FDR threshold test.
     resSig <- subset(res, padj < fdrThreshold)
     
     # Check the size; if everything has been filtered out then we let the user know and skip these reports.
     if (NROW(resSig) == 0) {
-       message <- paste0("Cannot report top up-regulated & down-regulated genes for ", class0, " vs. ", class1,
+       message <- paste0("Cannot report top up-regulated & down-regulated genes for ", class1, " vs. ", class0,
                     " .  No results pass the FDR filter threshold of ", fdrThreshold, ".")
        write(message, file=paste0(output.file.base, ".top", topNCount, "_upregulated_genes_report.txt"))
        write(message, file=paste0(output.file.base, ".top", topNCount, "_downregulated_genes_report.txt"))
