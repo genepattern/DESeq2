@@ -23,7 +23,7 @@ quality=development
 taskType=Gene List Selection
 categories=RNA-Seq;Differential Expression;Gene List Selection;DESeq;DESeq2
 userid=eby@broadinstitute.org
-version=
+version= Initial Beta
 
 p1_default_value=
 p1_description=A GCT file containing raw RNA-Seq counts, such as is produced by MergeHTSeqCounts
