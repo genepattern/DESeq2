@@ -1,6 +1,6 @@
 #lsid=urn:lsid:broad.mit.edu:cancer.software.genepattern.module.analysis:00362:0.2
 #
-name: Invalid Parameter Set 2
+name: invalid_FDR-1_smoke
 description: Runs DESeq2 with half VIB workshop data, no plots (default), **-1 FDR INVALID**, top 20 genes (default) and default random seed. Job status = success
 module: DESeq2
 params:
