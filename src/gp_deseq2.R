@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2016 Broad Institute, Inc. and Massachusetts Institute of Technology.  All rights reserved.
+## Copyright (c) 2019 Broad Institute, Inc. and Massachusetts Institute of Technology.  All rights reserved.
 ##
 
 GP.deseq2 <- function(gct, cls, confounding.var.cls, qc.plot.format, phenotype.test,
@@ -112,9 +112,14 @@ write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, t
     write.table(cbind(id=rownames(resOrdered), as.data.frame(resOrdered)), sep='\t', quote=FALSE, row.names=FALSE, 
                 append=TRUE, paste0(output.file.base, ".DESeq2_results_report.txt"))
 
+    # Write the normalized counts table.  This can be fed into GSEA downstream.  Might want to format as a GCT.
+    normCounts <- counts(dds, normalized=TRUE)
+    write.table(as.data.frame(normCounts), sep='\t', quote=FALSE, #row.names=FALSE, col.names=FALSE, 
+               file=paste0(output.file.base, ".normalized_counts.txt"))
+
     # Extra info, inspired by Brian Haas' example code.  Write out the row-level mean values by class.
-    baseMeanA <- rowMeans(counts(dds, normalized=TRUE)[,colData(dds)$condition == class0])
-    baseMeanB <- rowMeans(counts(dds, normalized=TRUE)[,colData(dds)$condition == class1])
+    baseMeanA <- rowMeans(normCounts[,colData(dds)$condition == class0])
+    baseMeanB <- rowMeans(normCounts[,colData(dds)$condition == class1])
     means_report <- cbind(baseMeanA, baseMeanB)
     colnames(means_report) <- c(class0, class1)
     means_report <- cbind(id=rownames(res), means_report)

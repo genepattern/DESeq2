@@ -24,6 +24,7 @@ taskType=Gene List Selection
 categories=RNA-Seq;Differential Expression;Gene List Selection;DESeq;DESeq2
 userid=eby@broadinstitute.org
 version=added 'getopt_1.20.0' and 'optparse_1.4.4' to r.package.info
+job.docker.image=genepattern/docker-r-3-2\:0.1
 
 p1_default_value=
 p1_description=A GCT file containing raw RNA-Seq counts, such as is produced by MergeHTSeqCounts
