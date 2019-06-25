@@ -112,9 +112,12 @@ write.reports <- function(dds, output.file.base, class0, class1, fdrThreshold, t
     write.table(cbind(id=rownames(resOrdered), as.data.frame(resOrdered)), sep='\t', quote=FALSE, row.names=FALSE, 
                 append=TRUE, paste0(output.file.base, ".DESeq2_results_report.txt"))
 
-    # Write the normalized counts table.  This can be fed into GSEA downstream.  Might want to format as a GCT.
+    # Write the normalized counts table.  This can be fed into GSEA downstream.
     normCounts <- counts(dds, normalized=TRUE)
-    write.table(as.data.frame(normCounts), sep='\t', quote=FALSE, #row.names=FALSE, col.names=FALSE, 
+    row.descriptions <- c(rep("n/a", times = length(row.names(normCounts))))
+    normCountsGct <- list(row.descriptions=row.descriptions, data=as.matrix(normCounts))
+    write.gct(normCountsGct, file = paste0(output.file.base, ".normalized_counts.gct"), check.file.extension=FALSE)
+    write.table(as.data.frame(normCounts), sep='\t', quote=FALSE, 
                file=paste0(output.file.base, ".normalized_counts.txt"))
 
     # Extra info, inspired by Brian Haas' example code.  Write out the row-level mean values by class.
