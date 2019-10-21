@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2016 Broad Institute, Inc. and Massachusetts Institute of Technology.  All rights reserved.
+## Copyright (c) 2019 Broad Institute, Inc. and Massachusetts Institute of Technology.  All rights reserved.
 ##
 #DESeq2
 #Fri Aug 19 14:46:22 JST 2016
@@ -14,16 +14,17 @@ license=
 cpuType=any
 description=A Differential Expression workflow for RNA-Seq data based on the DESeq2 package from Bioconductor 
 taskDoc=doc.html
-fileFormat=txt
+fileFormat=txt,gct
 language=R3.2.5
 name=DESeq2
 os=any
 privacy=public
-quality=preproduction
-taskType=Gene List Selection
-categories=RNA-Seq;Differential Expression;Gene List Selection;DESeq;DESeq2
+quality=production
+taskType=Differential Expression
+category=RNA-Seq;Differential Expression;Gene List Selection
 userid=eby@broadinstitute.org
-version= Initial Beta
+version=Changed to produce a GCT with the normalized counts table.  Added a docker image declaration.
+job.docker.image=genepattern/docker-r-3-2\:0.1
 
 p1_default_value=
 p1_description=A GCT file containing raw RNA-Seq counts, such as is produced by MergeHTSeqCounts

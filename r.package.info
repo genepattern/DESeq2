@@ -77,3 +77,8 @@ genefilter
 geneplotter
 # DESeq2_1.10.1                                                          
 DESeq2
+
+# https://cran.r-project.org/src/contrib/getopt_1.20.0.tar.gz
+getopt, 1.20.0, CRAN
+# https://cran.r-project.org/src/contrib/optparse_1.4.4.tar.gz
+optparse, 1.4.4, CRAN
