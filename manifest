@@ -51,7 +51,7 @@ p2_type=java.io.File
 p2_value=
 
 p3_default_value=
-p3_description=A categorical CLS file specifying an additional confounding variable, mapped to the input file samples.  Use this for a two-factor comparison.
+p3_description=A categorical CLS file specifying an additional confounding variable, mapped to the input file samples.
 p3_fileFormat=cls
 p3_MODE=IN
 p3_name=confounding.variable.cls.file
