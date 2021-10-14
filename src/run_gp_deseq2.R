@@ -14,7 +14,7 @@ libdir <- arguments[1]
 
 option_list <- list(
   make_option("--input.file", dest="input.file"),
-  make_option("--cls.file", dest="cls.file"),
+  make_option("--cls.file", dest="cls.file", default=NULL),
   make_option("--confounding.variable.cls.file", dest="confounding.variable.cls.file", default=NULL),
   make_option("--output.file.base", dest="output.file.base"),
   make_option("--qc.plot.format", dest="qc.plot.format"),
@@ -25,29 +25,36 @@ option_list <- list(
   make_option("--randomSeed", dest="random.seed", type="integer", default=779948241)
   )
 
-opt <- parse_args(OptionParser(option_list=option_list), positional_arguments=TRUE, args=arguments)
+opt <- parse_args(OptionParser(option_list = option_list), positional_arguments = TRUE,
+ args = arguments)
 print(opt)
 opts <- opt$options
 source(file.path(libdir, "common.R"))
 source(file.path(libdir, "gp_deseq2.R"))
-
-check.output.format(opts$qc.plot.format)
 # Hiding advanced feature: not allowing >2 classes in Beta
-#check.phenotype.test(opts$phenotype.test)
-#phenotype.test <- opts$phenotype.test
+# check.phenotype.test(opts$phenotype.test) phenotype.test <-
+# opts$phenotype.test
 phenotype.test <- NULL
 
-# Load the GCT and CLS.
-gct <- read.gct(opts$input.file)
-cls <- read.cls(opts$cls.file)
 if (!is.null(opts$confounding.variable.cls.file)) {
-   confounding.var.cls <- read.cls(opts$confounding.variable.cls.file)
+ check.output.format(opts$qc.plot.format)
+
+ # Load the GCT and CLS.
+ gct <- read.gct(opts$input.file)
+ cls <- read.cls(opts$cls.file)
+ if (!is.null(opts$confounding.variable.cls.file)) {
+  confounding.var.cls <- read.cls(opts$confounding.variable.cls.file)
+ } else {
+  confounding.var.cls <- NULL
+ }
+
+ GP.deseq2(gct, cls, confounding.var.cls, opts$qc.plot.format, phenotype.test,
+  opts$output.file.base, opts$random.seed, opts$fdr.threshold, opts$top.N.count)
+
 } else {
-   confounding.var.cls <- NULL
+
+ # Load the GCT
+ gct <- read.gct(opts$input.file)
+ GP.deseq2.normalize(gct, opts$output.file.base, opts$random.seed)
 }
-
-GP.deseq2(gct, cls, confounding.var.cls, opts$qc.plot.format, 
-          phenotype.test, opts$output.file.base,
-          opts$random.seed, opts$fdr.threshold, opts$top.N.count)
-
 sessionInfo()
