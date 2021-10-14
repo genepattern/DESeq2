@@ -24,7 +24,7 @@ taskType=Differential Expression
 category=RNA-Seq;Differential Expression;Gene List Selection
 userid=eby@broadinstitute.org
 version=Changed to produce a GCT with the normalized counts table.  Added a docker image declaration.
-job.docker.image=genepattern/docker-r-3-2\:0.1
+job.docker.image=genepattern/deseq2\:0.1
 
 p1_default_value=
 p1_description=A GCT file containing raw RNA-Seq counts, such as is produced by MergeHTSeqCounts
@@ -32,7 +32,7 @@ p1_fileFormat=gct
 p1_numValues=1
 p1_MODE=IN
 p1_name=input.file
-p1_optional=
+p1_optional=on
 p1_prefix_when_specified=
 p1_TYPE=FILE
 p1_type=java.io.File
