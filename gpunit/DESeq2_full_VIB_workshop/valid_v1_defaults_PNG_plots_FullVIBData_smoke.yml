@@ -6,7 +6,7 @@ module: DESeq2
 params:
        input.file: "<%gpunit.testData%>/example_data/modules/PreprocessReadCounts/input/MergedHTSeqCounts_GSE52778.gct"
        cls.file: "<%gpunit.testData%>/example_data/modules/PreprocessReadCounts/input/MergedHTSeqCounts_GSE52778.cls"
-       confounding.variable.cls.file: ""
+       confounding.variable.cls.file: "<%gpunit.testData%>/example_data"
        output.file.base: "<input.file_basename>.png"
        qc.plot.format: "png"
        fdr.threshold: "0.1"
