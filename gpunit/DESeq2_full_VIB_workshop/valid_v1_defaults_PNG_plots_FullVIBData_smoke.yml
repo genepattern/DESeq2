@@ -5,7 +5,7 @@ description: Runs DESeq2 with Full VIB workshop data,**png plots**, .1 FDR (defa
 module: DESeq2
 params:
        input.file: "<%gpunit.testData%>/example_data/modules/PreprocessReadCounts/input/MergedHTSeqCounts_GSE52778.gct"
-       cls.file: "<%gpunit.testData%>/example_data/modules/PreprocessReadCounts/input/MergedHTSeqCounts_GSE52778.cls
+       cls.file: "<%gpunit.testData%>/example_data/modules/PreprocessReadCounts/input/MergedHTSeqCounts_GSE52778.cls"
        confounding.variable.cls.file: ""
        output.file.base: "<input.file_basename>.png"
        qc.plot.format: "png"
