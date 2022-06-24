@@ -15,7 +15,7 @@ cpuType=any
 description=A Differential Expression workflow for RNA-Seq data based on the DESeq2 package from Bioconductor 
 taskDoc=doc.html
 fileFormat=txt,gct
-language=R3.2.5
+language=R3.3.2
 name=DESeq2
 os=any
 privacy=public
@@ -24,7 +24,7 @@ taskType=Differential Expression
 category=RNA-Seq;Differential Expression;Gene List Selection
 userid=eby@broadinstitute.org
 version=Changed to produce a GCT with the normalized counts table.  Added a docker image declaration.
-job.docker.image=genepattern/docker-r-3-2\:0.1
+job.docker.image=genepattern/deseq2:v2
 
 p1_default_value=
 p1_description=A GCT file containing raw RNA-Seq counts, such as is produced by MergeHTSeqCounts

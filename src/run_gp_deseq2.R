@@ -2,6 +2,9 @@
 ## Copyright (c) 2016 Broad Institute, Inc. and Massachusetts Institute of Technology.  All rights reserved.
 ##
 
+install.packages('getopt', repos='http://cran.us.r-project.org')
+install.packages('optparse', repos='http://cran.us.r-project.org')
+
 suppressMessages(suppressWarnings(library(getopt)))
 suppressMessages(suppressWarnings(library(optparse)))
 suppressMessages(suppressWarnings(library(DESeq2)))
