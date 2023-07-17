@@ -1,5 +1,5 @@
 # BASE IMAGE
-FROM pvstodghill/deseq2:1.14.1__2017-01-02
+FROM bioconductor/bioconductor_docker:3.17
 
 USER root
 RUN mkdir /mnt/genepatt
@@ -9,3 +9,4 @@ COPY src/* /mnt/genepatt
 
 RUN R -e "install.packages('getopt', repos='http://cran.us.r-project.org')"
 RUN R -e "install.packages('optparse', repos='http://cran.us.r-project.org')"
+RUN R -e "BiocManager::install('DESeq2')"

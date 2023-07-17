@@ -2,8 +2,8 @@
 ## Copyright (c) 2016 Broad Institute, Inc. and Massachusetts Institute of Technology.  All rights reserved.
 ##
 
-install.packages('getopt', repos='http://cran.us.r-project.org')
-install.packages('optparse', repos='http://cran.us.r-project.org')
+#install.packages('getopt', repos='http://cran.us.r-project.org')
+#install.packages('optparse', repos='http://cran.us.r-project.org')
 
 suppressMessages(suppressWarnings(library(getopt)))
 suppressMessages(suppressWarnings(library(optparse)))
@@ -50,7 +50,7 @@ if (!is.null(opts$confounding.variable.cls.file)) {
 }
 
 GP.deseq2(gct, cls, confounding.var.cls, opts$qc.plot.format, 
-          phenotype.test, opts$output.file.base,
-          opts$random.seed, opts$fdr.threshold, opts$top.N.count)
+         phenotype.test, opts$output.file.base,
+         opts$random.seed, opts$fdr.threshold, opts$top.N.count)
 
 sessionInfo()
